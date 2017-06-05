@@ -1,9 +1,17 @@
 <?php
+$file_address='cache/pop';
+$sv=file_get_contents($file_address);
+if(strlen($sv)>2){
+	$sv=explode('#$#',$sv);
+	if(time()-$sv[0]<50000){
+		echo $sv[1];
+		exit();
+	}
+}
 require 'html_dom.php';
 require 'jsonhandler.php';
 require 'find_server.php';
 $html = file_get_html($server.'/browse/popular/all/1');
-// $singleitems=["Lang"=>"English","Name"=>"_film_","Owner"=>"Owner","Url"=>"[ERROR]","Rate"=>"#4FC3F7"];
 $objects=[];
 require 'filter_lang.php';
 
@@ -18,4 +26,9 @@ foreach ($html->find('tr') as $k=>$tr) {
 	$objects[]=$obj;
 }
 $seri=new ZJson($objects);
-echo $seri->SerializeObject();
+$ret= $seri->SerializeObject();
+echo $ret;
+$myfile = fopen($file_address, "w");
+$ret=time().'#$#'.$ret;
+fwrite($myfile, $ret);
+fclose($myfile);
