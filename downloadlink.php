@@ -1,6 +1,6 @@
 <?php
 require 'find_server.php';
-$url=$server.'/subtitle/download?mac='.$_GET['mac'];
+$url=$server.$_GET['mac'];
 header("Pragma: public");
 header("Expires: 0");
 header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
