@@ -6,6 +6,6 @@ BASEURL: `https://subtlr.herokuapp.com`
 |---|---|---|
 | Home | GET | `/home.php` |
 | Search | GET | `/search.php?q=[search query]` |
-| Movie Subtitles | GET | `/movie.php?lang=[INT, Language]&url=[subtitle url]` |
-| Downloadable Links | GET | `/links.php&url=[subtitle url]` |
+| Movie Subtitles | GET | `/movie.php?lang=[Language_ID]&url=[subtitle url]` |
+| Downloadable Links | GET | `/links.php?url=[subtitle url]` |
 | Download Subtitle File | GET | `/download.php?mac=[subtitle mac]` |
