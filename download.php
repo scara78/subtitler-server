@@ -1,5 +1,5 @@
 <?php
-require 'find_server.php';
+require 'head.php';
 $url=$server.$_GET['mac'];
 header("Pragma: public");
 header("Expires: 0");
