@@ -49,7 +49,7 @@ else{
 		curl_close($ch);
 		$html= new simple_html_dom();
 		$html->load($str);
-	}catch(Exception $ex){
+	}catch(Throwable $ex){
 		$html = '';
 	}
 }
@@ -60,7 +60,7 @@ if(strlen($html)<1 || (strpos($html,'404 - Not Found') !== false)) {
 try {
 	$v=$html->find('img[alt=Poster]',0);
 	if(@$v) $main['ImgSrc']=$v->src;
-} catch (Exception $e) {
+} catch (Throwable $e) {
 	$main['ImgSrc']="";
 }
 try{
@@ -69,14 +69,14 @@ try{
 	$imdbPosition=strrpos($main['Name'], 'Imdb');
 	if($imdbPosition===false) $imdbPosition=strrpos($main['Name'], 'Flag');
 	$main['Name']=substr($main['Name'],0,$imdbPosition);
-}catch(Exception $e){die();}
+}catch(Throwable $e){die();}
 foreach ($html->find('tr') as $k=>$tr) {
 	if($k==0 )continue;
 	if((strpos($tr->innertext, 'subtitle') == false))continue;
 	try{
 		$obj['Lang']=trim(str_replace("\t", '',($tr->find('td.a1 span',0)->plaintext)));
 		if(isset($lang) && (strripos($lang,$obj['Lang'])=== false)) continue;
-	}catch(Exception $e){
+	}catch(Throwable $e){
 		continue;
 	}
 	$obj["Name"]=trim(str_replace("\t", '',$tr->find('td.a1 span text',1)->plaintext));
