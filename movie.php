@@ -73,16 +73,19 @@ try{
 foreach ($html->find('tr') as $k=>$tr) {
 	if($k==0 )continue;
 	if((strpos($tr->innertext, 'subtitle') == false))continue;
+	$a1 = $tr->find('td.a1 a[href]',0); 
+	$obj["Url"] = $a1->href;
+	$obj["Name"]=trim(str_replace("\t", '',$a1->find('span',1)->plaintext));
+	if((strpos($a1->innertext, 'neutral-icon') !== false)) $obj['Rate']="Gray";
 	try{
-		$obj['Lang']=trim(str_replace("\t", '',($tr->find('td.a1 span',0)->plaintext)));
+		$obj['Lang']=trim(str_replace("\t", '',($a1->find('span',0)->plaintext)));
 		if(isset($lang) && (strripos($lang,$obj['Lang'])=== false)) continue;
 	}catch(Throwable $e){
 		continue;
 	}
-	$obj["Name"]=trim(str_replace("\t", '',$tr->find('td.a1 span text',1)->plaintext));
-	$obj["Url"]=$tr->find('td.a1 a[href]',0)->href;
 	$obj['Owner']=trim(str_replace("\t", '',$tr->find('td.a5',0)->plaintext));
-	if((strpos($tr->innertext, 'neutral-icon') !== false)) $obj['Rate']="Gray";
+	$obj["HearingImpaired"] = false;
+	if((strpos($tr->innertext, 'a41') !== false)) $obj['HearingImpaired'] = true;
 	$objects[]=$obj;
 } 
 echo json_encode([$main,$objects],JSON_UNESCAPED_UNICODE);
