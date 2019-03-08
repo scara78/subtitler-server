@@ -64,9 +64,9 @@ try {
 	$main['ImgSrc']="";
 }
 try{
-	$main['Year']=trim(str_replace("\t", " ", $html->find('div.header>ul>li',0)->plaintext));
-	$main['Name']=trim(str_replace("\t", " ", $html->find('div.header>h2',0)->plaintext));
-	$imdbPosition=strrpos($main['Name'], 'Imdb');
+	$main['Year']=@trim(str_replace("\t", " ", $html->find('div.header>ul>li',0)->plaintext));
+	$main['Name']=@trim(str_replace("\t", " ", $html->find('div.header>h2',0)->plaintext));
+	$imdbPosition=@strrpos($main['Name'], 'Imdb');
 	if($imdbPosition===false) $imdbPosition=strrpos($main['Name'], 'Flag');
 	$main['Name']=substr($main['Name'],0,$imdbPosition);
 }catch(Throwable $e){die();}
@@ -78,12 +78,12 @@ foreach ($html->find('tr') as $k=>$tr) {
 	$obj["Name"]=trim(str_replace("\t", '',$a1->find('span',1)->plaintext));
 	if((strpos($a1->innertext, 'neutral-icon') !== false)) $obj['Rate']="Gray";
 	try{
-		$obj['Lang']=trim(str_replace("\t", '',($a1->find('span',0)->plaintext)));
+		$obj['Lang']=@trim(str_replace("\t", '',($a1->find('span',0)->plaintext)));
 		if(isset($lang) && (strripos($lang,$obj['Lang'])=== false)) continue;
 	}catch(Throwable $e){
 		continue;
 	}
-	$obj['Owner']=trim(str_replace("\t", '',$tr->find('td.a5',0)->plaintext));
+	$obj['Owner']=@trim(str_replace("\t", '',$tr->find('td.a5',0)->plaintext));
 	$obj["HearingImpaired"] = false;
 	if((strpos($tr->innertext, 'a41') !== false)) $obj['HearingImpaired'] = true;
 	$objects[]=$obj;
