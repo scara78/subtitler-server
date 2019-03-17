@@ -88,4 +88,4 @@ foreach ($html->find('tr') as $k=>$tr) {
 	if((strpos($tr->innertext, 'a41') !== false)) $obj['HearingImpaired'] = true;
 	$objects[]=$obj;
 } 
-echo json_encode([$main,$objects],JSON_UNESCAPED_UNICODE);
+echo json_encode(array("movie" => $main, "items" => $objects),JSON_UNESCAPED_UNICODE);
