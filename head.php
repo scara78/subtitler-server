@@ -1,5 +1,5 @@
 <?php
-$server = "http://subscene.com";
+$server = "https://subscene.xyz/";
 // ini_set('memory_limit', '256M');
 ini_set('allow_url_fopen', 1);
 ini_set('display_errors', 1);
