@@ -2,7 +2,8 @@
 require 'head.php';
 if (!isset($_GET['q'])) die();
 $search = str_replace(" ", "+", $_GET['q']);
-$url = $server . '/subtitles/title?q=' . $search;
+#https://subscene.xyz/subtitles/searchbytitle?query=hellboy&l=
+$url = $server . '/subtitles/searchbytitle?q=' . $search;
 $objects = [];
 try{
 	require 'html_dom.php';
